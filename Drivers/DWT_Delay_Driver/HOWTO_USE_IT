@@ -1,0 +1,41 @@
+/*
+sample code used by Stockert Stefan
+*/
+
+/* Includes ------------------------------------------------------------------*/
+#include "stm32f3xx_hal.h"
+#include "dwt_stm32_delay.h"
+
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
+
+  /* USER CODE END 1 */
+
+  /* MCU Configuration----------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+
+  /* USER CODE BEGIN 2 */
+
+  if(DWT_Delay_Init())
+  {
+    Error_Handler(); /* Call Error Handler */
+  }
+
+  while(1)
+  {
+    /* 10s Delay */
+    DWT_Delay_us(10000000);
+
+    HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+  }
+}
+
